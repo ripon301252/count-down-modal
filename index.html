@@ -28,8 +28,8 @@
             <h1 class="text-4xl text-white text-center font-bold mb-5">Congrates!</h1>
 
             <p class="text-white text-center">Adoption Process is Start For your pet</p>
-
-            <p id="demo" class="text-center text-5xl font-bold text-white mt-8"></p>
+            <span id="count-down" class="text-center text-5xl flex justify-center font-bold text-white mt-8"></span>
+           
         </div>
        
     </div>
@@ -47,7 +47,7 @@
 <script>
     // Get the modal
     const modal = document.getElementById("myModal");
-    const spanTag = document.getElementById("show-time");
+   
     // Get the button that opens the modal
     const btn = document.getElementById("open-modal");
 
@@ -56,38 +56,37 @@
         modal.style.display = "block";
     }
 
-    // ----------------------------------------------------------------
-// Set the date we're counting down to
-const countDownDate = new Date("Jan 5, 2030 15:37:25").getTime();
-let countDownCall = "";
+    // Set the date we're counting down to
+    const spanTag = document.getElementById('count-down')
+    const countDownDate = new Date("Jan 5, 2030 15:37:25").getTime();
+    // let countDownCall = "";
 
-// Update the count down every 1 second
-const x = setInterval(function() {
+    // Update the count down every 1 second
+    const countDownCall = setInterval(function() {
 
-  // Get today's date and time
-  const now = new Date().getTime();
+    // Get today's date and time
+    const now = new Date().getTime();
+        
+    // Find the distance between now and the count down date
+    const distance = countDownDate - now;
+        
+    // Time calculations for days, hours, minutes and seconds
+    const seconds = Math.floor((distance % (1000 * 4)) / 1000);
+        
+    // Output the result in an element with id="demo"
+    document.getElementById("count-down").innerHTML = seconds ;
+        
+    // If the count down is over, write some text 
     
-  // Find the distance between now and the count down date
-  const distance = countDownDate - now;
-    
-  // Time calculations for days, hours, minutes and seconds
- 
-  const seconds = Math.floor((distance % (1000 * 4)) / 1000);
-    
-  // Output the result in an element with id="demo"
-  document.getElementById("demo").innerHTML = seconds ;
-    
-  // If the count down is over, write some text 
-  if (distance < 0) {
-    clearInterval(x);
-    document.getElementById("demo").innerHTML = "EXPIRED";
-  }
-});
-
+    // When the user clicks anywhere outside of the modal, close it
+        spanTag = function() {
+            setTimeout(function (){
+                modal.style.display = "none";
+            },3000)   
+        }
+  
+    });
 </script>
-
-
-
 
 
 <script src="tailwind.config.js"></script>
