@@ -1,95 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modal</title>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <style>
-       body {
-        font-family: Arial, Helvetica, sans-serif;
-    }
-    </style>
-
+  <meta charset="UTF-8">
+  <title>Tailwind Countdown Modal</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-100 text-center py-20 font-sans">
 
-<!-- Trigger/Open The Modal -->
-    
-    <!-- The Modal -->
-    <div id="myModal" class=" fixed z-10 py-10 top-0 left-0 w-full h-full overflow-auto hidden">
-    <!-- Modal content -->
-        <div class="bg-[#000000] w-[30%] mx-auto p-10 border rounded-lg">
+ 
+  <button onclick="startCountdown()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded shadow">
+    Open Modal
+  </button>
 
-            <img  class="w-16 mb-8 mx-auto" src="ruiton.png" >
+  <!-- Modal -->
+  <div id="countdownModal" class="hidden fixed inset-0 items-center justify-center ">
 
-            <h1 class="text-4xl text-white text-center font-bold mb-5">Congrates!</h1>
-
-            <p class="text-white text-center">Adoption Process is Start For your pet</p>
-            <span id="count-down" class="text-center text-5xl flex justify-center font-bold text-white mt-8"></span>
-           
-        </div>
-       
+     <div class="bg-[#000000] w-[30%] h-[45%] mx-auto  border rounded-lg z-40 mt-12 ">
+        <img  class="w-16 mb-8 mx-auto " src="ruiton.png" >
+        <h1 class="text-4xl text-white text-center font-bold mt-[-20px] mb-5">Congrates!</h1>
+        <p class="text-white text-center">Adoption Process is Start For your pet</p>
+        <span id="count-down" class="text-center text-5xl flex justify-center font-bold text-white mt-8"></span>
     </div>
 
-    
-    <button id="open-modal" class="bg-indigo-700 px-6 py-3 flex mx-auto text-white font-bold cursor-pointer border rounded-lg hover:bg-indigo-600 my-20">Open Modal</button>
+    <!-- modal content -->
+    <div class=" p-8 text-5xl font-bold text-white mb-20  mt-[-120px] z-50" id="modalContent">
+      Starting...
+    </div>
 
-    
-   
-   
+  </div>
 
-
-
-
-<script>
-    // Get the modal
-    const modal = document.getElementById("myModal");
-   
-    // Get the button that opens the modal
-    const btn = document.getElementById("open-modal");
-
-    // When the user clicks the button, open the modal 
-    btn.onclick = function() {
-        modal.style.display = "block";
-    }
-
-    // Set the date we're counting down to
-    const spanTag = document.getElementById('count-down')
-    const countDownDate = new Date("Jan 5, 2030 15:37:25").getTime();
-    // let countDownCall = "";
-
-    // Update the count down every 1 second
-    const countDownCall = setInterval(function() {
-
-    // Get today's date and time
-    const now = new Date().getTime();
-        
-    // Find the distance between now and the count down date
-    const distance = countDownDate - now;
-        
-    // Time calculations for days, hours, minutes and seconds
-    const seconds = Math.floor((distance % (1000 * 4)) / 1000);
-        
-    // Output the result in an element with id="demo"
-    document.getElementById("count-down").innerHTML = seconds ;
-        
-    // If the count down is over, write some text 
-    
-    // When the user clicks anywhere outside of the modal, close it
-        spanTag = function() {
-            setTimeout(function (){
-                modal.style.display = "none";
-            },3000)   
-        }
   
-    });
-</script>
 
+  <script>
+    function startCountdown() {
+      let num = 3;
+      const modal = document.getElementById("countdownModal");
+      const content = document.getElementById("modalContent");
+      
 
-<script src="tailwind.config.js"></script>
-    
+      modal.classList.remove("hidden");  // Show modal
+      content.innerText = num;
+
+      let time = setInterval(() => {
+        num--;
+        if (num >= 0) {
+          content.innerText = num;
+        } else {
+          clearInterval(time);
+        //   content.innerText = "Countdown Finished!";
+
+          // Hide modal after 0 seconds
+          setTimeout(() => {
+           modal.classList.add("hidden");
+          },0);
+        }
+      }, 1000);
+    }
+  </script>
+
 </body>
 </html>
